@@ -3,16 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bob <fokrober@student.1337.ma>             +#+  +:+       +#+        */
+/*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/22 12:40:55 by bob               #+#    #+#             */
-/*   Updated: 2020/10/10 19:48:31 by fokrober         ###   ########.fr       */
+/*   Created: 2020/10/16 05:19:43 by fokrober          #+#    #+#             */
+/*   Updated: 2020/10/16 05:40:29 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		main(void)
+int     main(void)
 {
-	return (0);
+    t_env   *env;
+
+    env = farmdata();
+	ft_putendl_fd(env->farm, 2);
+    return (0);
 }

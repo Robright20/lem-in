@@ -6,12 +6,12 @@
 #    By: bob <fokrober@student.1337.ma>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/15 15:46:07 by bob               #+#    #+#              #
-#    Updated: 2020/10/11 09:12:37 by fokrober         ###   ########.fr        #
+#    Updated: 2020/10/16 05:18:33 by fokrober         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lem-in
-SRC = $(addprefix src/, lem_in.c)
+SRC = $(addprefix src/, lem_in.c get_data.c)
 HEADER = $(addprefix include/, lem_in.h)
 OBJ = $(SRC:.c=.o)
 LFTDIR = ./libft
