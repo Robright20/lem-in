@@ -6,7 +6,7 @@
 #    By: bob <fokrober@student.1337.ma>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/04/15 22:00:03 by bob               #+#    #+#              #
-#    Updated: 2020/10/11 10:07:39 by fokrober         ###   ########.fr        #
+#    Updated: 2020/10/16 03:50:00 by fokrober         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ SRC = ft_putstr.c ft_putnbr.c ft_putendl_fd.c ft_strnequ.c ft_strsub.c \
       ft_memcpy.c ft_memalloc.c ft_memdel.c ft_atoi.c ft_bzero.c 
 HEADER = libft.h
 OBJ = $(SRC:.c=.o)
-ARFLAGS = rcsU
+ARFLAGS = rcsu
 CFLAGS = -Wall -Wextra -Werror -c
 CC = gcc
 RED = \033[31m

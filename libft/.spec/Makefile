@@ -6,7 +6,7 @@
 #    By: fokrober <fokrober@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/11 12:14:34 by fokrober          #+#    #+#              #
-#    Updated: 2020/10/15 18:41:29 by fokrober         ###   ########.fr        #
+#    Updated: 2020/10/16 04:17:49 by fokrober         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ NAME = test
 HEADER = $(addprefix include/, test.h libft.h)
 SRC = $(addprefix src/, test.c print_memory.c ft_memalloc_test.c \
       ft_putstr_test.c ft_putnbr_test.c ft_putendl_fd_test.c ft_strnequ_test.c\
-      ft_atoi_test.c ft_memcpy_test.c ft_memdel_test.c)
-	#ft_strsub_test.c ft_bzero_test.c)
+      ft_atoi_test.c ft_memcpy_test.c ft_memdel_test.c ft_strsub_test.c \
+	  ft_bzero_test.c)
 OBJ = $(SRC:.c=.o)
 CFLAGS = -Wall -Wextra -Werror -I./include -D TEST$(CASE)
 LDLIBS = -lft
@@ -38,7 +38,7 @@ prompt:
 	@echo -n " > $(NAME) building"
 
 %.o: %.c $(HEADER)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) -c $< -o $@ $(CFLAGS)
 	@echo ".\c"
 
 clean:
