@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/29 23:32:55 by mzaboub           #+#    #+#             */
-/*   Updated: 2020/10/16 05:29:07 by fokrober         ###   ########.fr       */
+/*   Updated: 2020/10/17 02:36:10 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	ft_putstr(char const *str);
 void	ft_putnbr(int n);
 void	ft_putendl_fd(char *s, int fd);
 int		ft_strnequ(char const *s1, char const *s2, size_t n);
+int		ft_strequ(char const *s1, char const *s2);
+char	*ft_strchr(char const *s1, int c);
 int		ft_atoi(const char *str);
 void	*ft_memalloc(size_t size);
 void	*ft_memcpy(void *dst, const void *src, size_t n);

@@ -6,7 +6,7 @@
 /*   By: bob <fokrober@student.1337.ma>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/22 12:49:48 by bob               #+#    #+#             */
-/*   Updated: 2020/10/16 05:28:17 by fokrober         ###   ########.fr       */
+/*   Updated: 2020/10/17 02:36:55 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@
 # define MAX_LLONG 18446744073709551615
 # define SPACE " \t"
 # include <stdlib.h>
-# include <libft.h>
+# include "libft.h"
 # include <stdio.h>
 # include <unistd.h>
+# include <limits.h>
 
 typedef struct s_hash	t_hash;
 typedef struct s_edge	t_edge;
@@ -42,7 +43,7 @@ typedef struct s_env	t_env;
 
 struct			s_edge
 {
-	t_node	*child;
+	t_node	*to;
 	int		flow;
 	t_edge	*next;
 };
@@ -93,8 +94,12 @@ struct			s_env
 t_env			*farmdata(void);
 int				parser(t_env *env);
 t_hash			*create_hash(size_t size);
-int				save_node(t_env *env, char *name);
 t_node			*get_node(t_env *env, char *name);
+int				save_node(t_env *env, char *name);
 int				save_link(t_env *env, char *link);
 int				get_data(t_env *env, char *line, int type);
+void			sort_edges(t_edge **head, t_env *env);
+int				x_isalpha(char *s, char *end);
+int				isnumber(char *s, char *end);
+int				add_edge(t_node *node, t_node *to);
 #endif
