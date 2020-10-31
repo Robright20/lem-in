@@ -1,21 +1,17 @@
-#!/usr/local/bin/node
+#!/usr/bin/env node
 
-const fs = require('fs');
+'use strict';
 const log = console.log;
-const fds = [Number(process.argv[2]), Number(process.argv[3])]
-log("Node Process");
-log(fds);
 
-const getParentData = (err, len, buf) => {
-	log(buf);
-}
+let inputString = '';
 
-const oncloseFd = (err) => {
-	log(err);
-}
+process.stdin.on('data', inputStdin => {
+	log("bob");
+	//log(String(inputStdin));
+});
 
-fs.close(fds[1], oncloseFd);
-fs.read(fds[0], getParentData);
-fs.close(fds[0], oncloseFd);
-while (true)
-	true;
+process.stdin.on('end', _val=> {
+	log(_val);
+});
+
+//process.stdout.write("hello: ");

@@ -1,0 +1,11 @@
+.circle {
+	position: fixed;
+	background-color: red;
+	border-radius: 50%;
+}
+
+.line {
+	position: fixed;
+	border: 1px solid black;
+	height: 0px;
+}
