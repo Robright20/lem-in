@@ -9,7 +9,7 @@ const nodesDist = (from, to) => {
 }
 
 const nodesAdj = (from, to) => {
-	return (Math.abs(from.coords.x) + Math.abs(to.coords.x));
+	return (Math.abs(from.coords.x - to.coords.x));
 }
 
 class Edge {
@@ -22,7 +22,7 @@ class Edge {
 }
 
 class Node {
-	radius = 10;
+	radius = 50;
 
 	constructor(name) {
 		this._name = name;
@@ -42,10 +42,6 @@ node1.coords = {x: 50, y: 30};
 let node2 = new Node("laura");
 node2.coords = {x: 100, y: 20};
 node1.linkWith(node2);
-node2.linkWith(node1);
-log(node1);
-log(node2);
-/*
 const drawNode = (node) => {
 	let div = document.createElement('div');
 
@@ -58,6 +54,7 @@ const drawNode = (node) => {
 }
 
 drawNode(node1);
+/*
 drawNode(node2);
 const drawEdge = (edge) => {
 	let div = document.createElement('div');
