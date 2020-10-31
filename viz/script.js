@@ -9,7 +9,7 @@ const nodesDist = (from, to) => {
 }
 
 const nodesAdj = (from, to) => {
-	Math.abs(from.coords.x) + Math.abs(to.coords.x);
+	return (Math.abs(from.coords.x) + Math.abs(to.coords.x));
 }
 
 class Edge {
@@ -38,10 +38,10 @@ class Node {
 }
 
 let node1 = new Node("bob");
-node1.coords = {x: 50, y: 20};
+node1.coords = {x: 50, y: 30};
 let node2 = new Node("laura");
 node2.coords = {x: 100, y: 20};
-log(node1.linkWith(node2));
+node1.linkWith(node2);
 node2.linkWith(node1);
 log(node1);
 log(node2);
