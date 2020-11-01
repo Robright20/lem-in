@@ -1,6 +1,12 @@
 'use strict'
 
+//get instant coords in devtools
+var x, y; document.onmousemove=(e)=>{x=e.pageX;y=e.pageY;}
+//type in live expression
+// `(${x}, ${y})`
+
 const log = console.log;
+const canvas = document.getElementById('canvas');
 
 const nodesDist = (from, to) => {
 	let x = (from.coords.x - to.coords.x);
@@ -18,6 +24,7 @@ class Edge {
 		this.to = to;
 		this.length = nodesDist(from, to);
 		this.angle = Math.acos(nodesAdj(from, to) / this.length);
+		this.coords = from.coords;
 	}
 }
 
@@ -26,22 +33,16 @@ class Node {
 
 	constructor(name) {
 		this._name = name;
-		this.coords = { x: 0, y: 0 };
+		this.coords = {x: 0, y: 0};
 		this.edges = [];
 	}
 	get name() {
 		return (this._name);
 	}
 	linkWith(node) {
-		return new Edge(this, node);
+		this.edges.push(new Edge(this, node));
 	}
 }
-
-let node1 = new Node("bob");
-node1.coords = {x: 50, y: 100};
-let node2 = new Node("laura");
-node2.coords = {x: 250, y: 250};
-node1.linkWith(node2);
 const drawNode = (node) => {
 	let div = document.createElement('div');
 
@@ -50,19 +51,28 @@ const drawNode = (node) => {
 	div.style.left = node.coords.x + 'px';
 	div.style.top = node.coords.y + 'px';
 	div.className = 'circle';
-	document.body.append(div);
+	canvas.append(div);
 }
 const drawEdge = (edge) => {
 	let div = document.createElement('div');
 
 	div.className = 'line';
 	div.style.width = edge.length + 'px';
-	div.style.-moz-transform: 'rotate(' + edge.angle + 'rad)';
+	div.style.transform = 'rotate(' + edge.angle + 'rad)';
+	div.style.left = edge.coords.x + 'px';
+	div.style.top = edge.coords.y + 'px';
+/*	div.style.-moz-transform: 'rotate(' + edge.angle + 'rad)';
 	div.style.-webkit-transform: 'rotate(' + edge.angle + 'rad)';
 	div.style.-o-transform: 'rotate(' + edge.angle + 'rad)';
 	div.style.-ms-transform: 'rotate(' + edge.angle + 'rad);
-	document.body.append(div);
+	*/
+	canvas.append(div);
 }
+let node1 = new Node("bob");
+node1.coords = {x: 50, y: 100};
+let node2 = new Node("laura");
+node2.coords = {x: 250, y: 250};
+node1.linkWith(node2);
 drawNode(node1);
 drawNode(node2);
-//drawEdge(node1.edges[0]);
+drawEdge(node1.edges[0]);
