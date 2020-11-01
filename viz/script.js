@@ -7,17 +7,14 @@ var x, y; document.onmousemove=(e)=>{x=e.pageX;y=e.pageY;}
 
 const log = console.log;
 const canvas = document.getElementById('canvas');
-
 const nodesDist = (from, to) => {
 	let x = (from.coords.x - to.coords.x);
 	let y = (from.coords.y - to.coords.y);
 	return (Math.sqrt(x * x + y * y));
 }
-
 const nodesAdj = (from, to) => {
 	return (Math.abs(from.coords.x - to.coords.x));
 }
-
 class Edge {
 	constructor(from, to) {
 		this.from = from;
@@ -25,9 +22,9 @@ class Edge {
 		this.length = nodesDist(from, to);
 		this.angle = Math.acos(nodesAdj(from, to) / this.length);
 		this.coords = from.coords;
+		this.html = '';
 	}
 }
-
 class Node {
 	radius = 20;
 
@@ -35,6 +32,7 @@ class Node {
 		this._name = name;
 		this.coords = {x: 0, y: 0};
 		this.edges = [];
+		this.html = '';
 	}
 	get name() {
 		return (this._name);
@@ -44,29 +42,24 @@ class Node {
 	}
 }
 const drawNode = (node) => {
-	let div = document.createElement('div');
+	node.html = document.createElement('div');
 
-	div.style.width = node.radius * 2 + 'px';
-	div.style.height = node.radius * 2 + 'px';
-	div.style.left = node.coords.x + 'px';
-	div.style.top = node.coords.y + 'px';
-	div.className = 'circle';
-	canvas.append(div);
+	node.html.style.width = node.radius * 2 + 'px';
+	node.html.style.height = node.radius * 2 + 'px';
+	node.html.style.left = node.coords.x + 'px';
+	node.html.style.top = node.coords.y + 'px';
+	node.html.className = 'circle';
+	canvas.append(node.html);
 }
 const drawEdge = (edge) => {
-	let div = document.createElement('div');
+	edge.html = document.createElement('div');
 
-	div.className = 'line';
-	div.style.width = edge.length + 'px';
-	div.style.transform = 'rotate(' + edge.angle + 'rad)';
-	div.style.left = edge.coords.x + 'px';
-	div.style.top = edge.coords.y + 'px';
-/*	div.style.-moz-transform: 'rotate(' + edge.angle + 'rad)';
-	div.style.-webkit-transform: 'rotate(' + edge.angle + 'rad)';
-	div.style.-o-transform: 'rotate(' + edge.angle + 'rad)';
-	div.style.-ms-transform: 'rotate(' + edge.angle + 'rad);
-	*/
-	canvas.append(div);
+	edge.html.className = 'line';
+	edge.html.style.width = edge.length + 'px';
+	edge.html.style.transform = 'rotate(' + edge.angle + 'rad)';
+	edge.html.style.left = edge.coords.x + 'px';
+	edge.html.style.top = edge.coords.y + 'px';
+	canvas.append(edge.html);
 }
 let node1 = new Node("bob");
 node1.coords = {x: 50, y: 100};

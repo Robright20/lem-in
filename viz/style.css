@@ -23,7 +23,6 @@ body {
 .line {
 	position: absolute;
 	border: 1px solid black;
-	height: 0px;
 }
 
 div#canvas {
