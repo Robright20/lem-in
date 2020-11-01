@@ -22,7 +22,7 @@ class Edge {
 }
 
 class Node {
-	radius = 50;
+	radius = 20;
 
 	constructor(name) {
 		this._name = name;
@@ -38,32 +38,31 @@ class Node {
 }
 
 let node1 = new Node("bob");
-node1.coords = {x: 50, y: 30};
+node1.coords = {x: 50, y: 100};
 let node2 = new Node("laura");
-node2.coords = {x: 100, y: 20};
+node2.coords = {x: 250, y: 250};
 node1.linkWith(node2);
 const drawNode = (node) => {
 	let div = document.createElement('div');
 
 	div.style.width = node.radius * 2 + 'px';
 	div.style.height = node.radius * 2 + 'px';
-	div.style.left = node.x + 'px';
-	div.style.top = node.y + 'px';
+	div.style.left = node.coords.x + 'px';
+	div.style.top = node.coords.y + 'px';
 	div.className = 'circle';
 	document.body.append(div);
 }
-
-drawNode(node1);
-/*
-drawNode(node2);
 const drawEdge = (edge) => {
 	let div = document.createElement('div');
 
 	div.className = 'line';
-	div.style.width = edge->length + 'px';
-	div.style.transform = 'rotate(' + edge->angle +'rad)';
+	div.style.width = edge.length + 'px';
+	div.style.-moz-transform: 'rotate(' + edge.angle + 'rad)';
+	div.style.-webkit-transform: 'rotate(' + edge.angle + 'rad)';
+	div.style.-o-transform: 'rotate(' + edge.angle + 'rad)';
+	div.style.-ms-transform: 'rotate(' + edge.angle + 'rad);
 	document.body.append(div);
 }
-drawNode(200, 200, 10);
-drawEdge(150, 150, 200, 200);
-*/
+drawNode(node1);
+drawNode(node2);
+//drawEdge(node1.edges[0]);

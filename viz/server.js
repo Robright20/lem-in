@@ -20,6 +20,7 @@ let uri = '';
 let type = '';
 
 const server = http.createServer((req, res) => {
+	log(req.url);
 	uri = (req.url === '/') ? ['index.html'] : req.url.split('/');
 	type = uri[uri.length - 1].split('.');
 	type = contentTypes.getType(type[type.length - 1]);
