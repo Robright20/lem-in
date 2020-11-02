@@ -15,12 +15,19 @@ const nodesDist = (from, to) => {
 const nodesAdj = (from, to) => {
 	return (Math.abs(from.coords.x - to.coords.x));
 }
+const getSlope = (c1, c2) => {
+	let x = (c1.x - c2.x);
+	let y = (c1.y - c2.y);
+	return (x / y);
+}
 class Edge {
 	constructor(from, to) {
 		this.from = from;
 		this.to = to;
 		this.length = nodesDist(from, to);
-		this.angle = Math.acos(nodesAdj(from, to) / this.length);
+		this.slope = getSlope(from.coords, to.coords);
+		this.adj = nodesAdj(from, to);
+		this.angle = Math.acos(this.adj / this.length);
 		this.coords = from.coords;
 		this.html = '';
 	}
@@ -53,14 +60,26 @@ const drawNode = (node) => {
 }
 const drawEdge = (edge) => {
 	edge.html = document.createElement('div');
+	let angle = 0; 
+	let shift = 0;
 
+	if (edge.slope >= 0) {
+		angle = edge.angle;
+		if (edge.slope >= 1)
+			shift = edge.coords.y;
+		else if (edge.slope < 1)
+			shift = edge.coords.y / 4;
+	} else {
+		angle = Math.PI - edge.angle;
+	}
 	edge.html.className = 'line';
 	edge.html.style.width = edge.length + 'px';
-	edge.html.style.transform = 'rotate(' + (Math.PI - edge.angle) + 'rad)';
+	edge.html.style.transform = 'rotate(' + angle + 'rad)';
 	edge.html.style.left = edge.coords.x + 'px';
-	edge.html.style.top = edge.coords.y + 'px';
+	edge.html.style.top = edge.coords.y + shift + 'px';
 	canvas.append(edge.html);
 }
+/*
 let node1 = new Node("bob");
 let node2 = new Node("laura");
 let node3 = new Node("dany");
@@ -76,6 +95,7 @@ drawNode(node1);
 drawNode(node2);
 drawNode(node3);
 drawNode(node4);
-//drawEdge(node1.edges[0]);
-//drawEdge(node1.edges[1]);
+drawEdge(node1.edges[0]);
+drawEdge(node1.edges[1]);
 drawEdge(node1.edges[2]);
+*/
