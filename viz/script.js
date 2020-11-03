@@ -4,7 +4,7 @@
 var x, y; document.onmousemove=(e)=>{x=e.pageX;y=e.pageY;}
 //type in live expression
 // `(${x}, ${y})`
-
+const socket = new WebSocket('ws://192.168.99.103:8000');
 const log = console.log;
 const canvas = document.getElementById('canvas');
 const nodesDist = (from, to) => {
@@ -79,6 +79,12 @@ const drawEdge = (edge) => {
 	edge.html.style.top = edge.coords.y + shift + 'px';
 	canvas.append(edge.html);
 }
+socket.addEventListener('open', (ev) => {
+	socket.send('hello Server');
+});
+socket.addEventListener('message', (msg) => {
+	log(msg);
+});
 /*
 let node1 = new Node("bob");
 let node2 = new Node("laura");

@@ -3,14 +3,13 @@
 'use strict';
 const fs = require('fs');
 const http = require('http');
-const Websocket = require('ws');
-const url = require('url');
-const wss = new Websocket.Server({ noServer: true });
+const WebSocket = require('ws');
+const wss = new WebSocket.Server({ noServer: true });
 const log = console.log;
-const contentTypes = {
+const MIMETypes = {
 	'html': 'text/html',
 	'css': 'text/css',
-	'js': 'application/javascript',
+	'js': 'text/javascript',
 	getType: function (str) {
 		for (let key in this) {
 			if (key === str)
@@ -21,35 +20,41 @@ const contentTypes = {
 };
 let uri = '';
 let type = '';
+let socket = '';
 
+/*
 const server = http.createServer((req, res) => {
-	log(url.parse(req.url));
 	uri = (req.url === '/') ? ['index.html'] : req.url.split('/');
 	type = uri[uri.length - 1].split('.');
-	type = contentTypes.getType(type[type.length - 1]);
+	type = MIMETypes.getType(type[type.length - 1]);
+	res.writeHead(200, {'Content-Type': type});
 	fs.readFile(uri[uri.length - 1], null, (err, data) => {
 		if (err) {
 			res.writeHead(404);
 		} else {
-			res.writeHead(200, {'Content-Type': type});
 			res.write(data);
 		}
 		res.end();
 	}); 
 });
-server.on('upgrade', function upgrade(req, socket, head) {
-	const pathname = url.parse(req.url).pathname;
-	log(pathname);
+wss.on('connection', (ws) => {
+	ws.on('message', (msg) => {
+		log('received: %s', msg);
+	});
+	socket = ws;
+	ws.send('hey!');
+});
+server.on('upgrade', (req, socket, head) => {
+	wss.handleUpgrade(req, socket, head, (ws) => {
+		wss.emit('connection', ws, req);
+	});
 });
 server.listen(8000, () => log('listening on port: 8000'));
-/*
+*/
 process.stdin.on('data', inputStdin => {
-	log("bob");
-	//log(String(inputStdin));
+	log(String(inputStdin));
 });
-
 process.stdin.on('end', _val=> {
 	log(_val);
 });
-*/
 //process.stdout.write("hello: ");
