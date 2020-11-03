@@ -1,53 +1,21 @@
 'use strict'
+/* ***************************************** */
+/*		get instant coords in devtools		*/
 
-//get instant coords in devtools
-var x, y; document.onmousemove=(e)=>{x=e.pageX;y=e.pageY;}
-//type in live expression
-// `(${x}, ${y})`
+		let x, y;
+		document.onmousemove = (e) => {
+			x = e.pageX;
+			y = e.pageY;
+		}
+
+/*		type in live expression
+ *		`(${x}, ${y})`						*/
+/* ***************************************** */
+
+
 const socket = new WebSocket('ws://192.168.99.103:8000');
 const log = console.log;
 const canvas = document.getElementById('canvas');
-const nodesDist = (from, to) => {
-	let x = (from.coords.x - to.coords.x);
-	let y = (from.coords.y - to.coords.y);
-	return (Math.sqrt(x * x + y * y));
-}
-const nodesAdj = (from, to) => {
-	return (Math.abs(from.coords.x - to.coords.x));
-}
-const getSlope = (c1, c2) => {
-	let x = (c1.x - c2.x);
-	let y = (c1.y - c2.y);
-	return (x / y);
-}
-class Edge {
-	constructor(from, to) {
-		this.from = from;
-		this.to = to;
-		this.length = nodesDist(from, to);
-		this.slope = getSlope(from.coords, to.coords);
-		this.adj = nodesAdj(from, to);
-		this.angle = Math.acos(this.adj / this.length);
-		this.coords = from.coords;
-		this.html = '';
-	}
-}
-class Node {
-	radius = 20;
-
-	constructor(name) {
-		this._name = name;
-		this.coords = {x: 0, y: 0};
-		this.edges = [];
-		this.html = '';
-	}
-	get name() {
-		return (this._name);
-	}
-	linkWith(node) {
-		this.edges.push(new Edge(this, node));
-	}
-}
 const drawNode = (node) => {
 	node.html = document.createElement('div');
 

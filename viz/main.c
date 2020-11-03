@@ -6,7 +6,7 @@
 /*   By: fokrober <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 22:38:28 by fokrober          #+#    #+#             */
-/*   Updated: 2020/11/03 14:53:08 by fokrober         ###   ########.fr       */
+/*   Updated: 2020/11/03 19:08:21 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,17 @@ typedef struct	s_str
 	size_t	len;
 }				t_str;
 
+int		ft_putstr(int fd, char *s)
+{
+	int		len;
+
+	len = 0;
+	while (s[len])
+		len++;
+	write(fd, s, len);
+	return (len + 1);
+}
+
 int		ft_putendl(int fd, char *s)
 {
 	int		len;
@@ -32,6 +43,15 @@ int		ft_putendl(int fd, char *s)
 	write(fd, s, len);
 	write(fd, "\n", 1);
 	return (len + 1);
+}
+
+void	ft_putdata(int fd, char *data, char *type)
+{
+		ft_putstr(fd, "##begin-");
+		ft_putendl(fd, type);
+		ft_putstr(fd, data);
+		ft_putstr(fd, "##end-");
+		ft_putendl(fd, type);
 }
 
 void	u_realloc(char **res, int pos, int ret)
@@ -65,7 +85,7 @@ t_str	get_farm(void)
 	if (!buf)
 	{
 		perror("get_farm");
-		return (NULL);
+		exit(EXIT_FAILURE);
 	}
 	res.len = -1;
 	while ((ret = read(STDIN_FILENO, buf, BUFFER_SIZE)) > 0)
@@ -82,19 +102,18 @@ int		main(void)
 {
 	pid_t	child;
 	int		fd[2];
-	char	*farm;
+	t_str	farm;
 
-	if (pipe(fd) < 0 || !(farm = get_farm()))
+	if (pipe(fd) < 0)
 		return (1);
-	//ft_putendl(1, farm);
+	farm = get_farm();
 	child = fork();
 	if (child < 0)
 		ft_putendl(2, "error");
 	else if (child > 0)
 	{
-		ft_putendl(1, "Parent Process");
 		close(fd[0]);
-		ft_putendl(fd[1], "hey!");
+		ft_putdata(fd[1], farm.val, "farm");
 		wait(NULL);
 	}
 	else
@@ -102,7 +121,6 @@ int		main(void)
 		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
 		execl("./server.js", "", (void*)NULL);
-		write
 	}
 	close(fd[0]);
 	close(fd[1]);

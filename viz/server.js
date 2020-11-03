@@ -21,8 +21,8 @@ const MIMETypes = {
 let uri = '';
 let type = '';
 let socket = '';
+let leminData = '';
 
-/*
 const server = http.createServer((req, res) => {
 	uri = (req.url === '/') ? ['index.html'] : req.url.split('/');
 	type = uri[uri.length - 1].split('.');
@@ -42,7 +42,10 @@ wss.on('connection', (ws) => {
 		log('received: %s', msg);
 	});
 	socket = ws;
-	ws.send('hey!');
+	if (leminData !== '')
+		ws.send(leminData);
+	else
+		ws.send("connected to the server");
 });
 server.on('upgrade', (req, socket, head) => {
 	wss.handleUpgrade(req, socket, head, (ws) => {
@@ -50,11 +53,10 @@ server.on('upgrade', (req, socket, head) => {
 	});
 });
 server.listen(8000, () => log('listening on port: 8000'));
-*/
 process.stdin.on('data', inputStdin => {
-	log(String(inputStdin));
+	leminData = String(inputStdin);
 });
-process.stdin.on('end', _val=> {
-	log(_val);
+process.stdin.on('end', _val => {
+	//log(_val);
 });
 //process.stdout.write("hello: ");
