@@ -16,37 +16,6 @@
 const socket = new WebSocket('ws://192.168.99.103:8000');
 const log = console.log;
 const canvas = document.getElementById('canvas');
-const drawNode = (node) => {
-	node.html = document.createElement('div');
-
-	node.html.style.width = node.radius * 2 + 'px';
-	node.html.style.height = node.radius * 2 + 'px';
-	node.html.style.left = node.coords.x + 'px';
-	node.html.style.top = node.coords.y + 'px';
-	node.html.className = 'circle';
-	canvas.append(node.html);
-}
-const drawEdge = (edge) => {
-	edge.html = document.createElement('div');
-	let angle = 0; 
-	let shift = 0;
-
-	if (edge.slope >= 0) {
-		angle = edge.angle;
-		if (edge.slope >= 1)
-			shift = edge.coords.y;
-		else if (edge.slope < 1)
-			shift = edge.coords.y / 4;
-	} else {
-		angle = Math.PI - edge.angle;
-	}
-	edge.html.className = 'line';
-	edge.html.style.width = edge.length + 'px';
-	edge.html.style.transform = 'rotate(' + angle + 'rad)';
-	edge.html.style.left = edge.coords.x + 'px';
-	edge.html.style.top = edge.coords.y + shift + 'px';
-	canvas.append(edge.html);
-}
 socket.addEventListener('open', (ev) => {
 	socket.send('hello Server');
 });
