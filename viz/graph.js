@@ -5,11 +5,11 @@ export const newEdge = (from, to) => {
 	});
 };
 export class Node {
-	radius = '20';
+	radius = 20;
 
 	constructor(name) {
 		this._name = name;
-		this.coords = {x: '', y: ''};
+		this.coords = {x: 0, y: 0};
 		this.edges = [];
 		this.html = '';
 	}

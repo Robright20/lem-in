@@ -13,6 +13,7 @@ body {
 
 #canvas {
 	position: relative;
+	display: block;
 	border: 4px solid #0a0f1d;
 	width: 90%;
 	height: 80%;
