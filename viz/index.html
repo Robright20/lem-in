@@ -7,9 +7,15 @@
 	</head>
 
 	<body>
+		<template id="circle">
+			<circle cx="" cy="" r="" stroke="" stroke-width="" fill="" />
+		</template>
+		<template id="line">
+			<line x1="0" y1="0" x2="" y2="" />
+		</template>
 		<h1>Lem_in : Vizualizer</h1>
-		<div id="canvas">
-		</div>
-		<script src="script.js"></script>
+		<svg id="canvas">
+		</svg>
+		<script type="module" src="client.js"></script>
 	</body>
 </html>

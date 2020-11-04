@@ -11,22 +11,10 @@ body {
 	height: 100%;
 }
 
-div#canvas {
+#canvas {
 	position: relative;
 	border: 4px solid #0a0f1d;
 	width: 90%;
 	height: 80%;
 	margin: auto;
-}
-
-.circle {
-	position: absolute;
-	background-color: red;
-	border-radius: 50%;
-}
-
-.line {
-	position: absolute;
-	border: 3px solid black;
-	z-index: -1;
 }
