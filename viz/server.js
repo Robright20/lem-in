@@ -4,6 +4,7 @@
 const fs = require('fs');
 const http = require('http');
 const WebSocket = require('ws');
+const Graph = require('./lib/graph')
 const log = console.log;
 const wss = new WebSocket.Server({ noServer: true });
 const MIMETypes = {
@@ -53,6 +54,8 @@ server.on('upgrade', (req, socket, head) => {
 server.listen(8000, () => log('listening on port: 8000'));
 process.stdin.on('data', inputStdin => {
 	leminData[`msg${msgCount}`] = String(inputStdin).split('\n');
+	if (leminData[`msg${msgCount}`][0] === '##begin-farm')
+		Graph.createGraph(leminData[`msg${msgCount}`])
 	msgCount += 1;
 	if (socket !== '')
 	{
@@ -64,7 +67,6 @@ process.stdin.on('data', inputStdin => {
 	}
 });
 process.stdin.on('end', _val => {
-	log(leminData);
-	log(_val);
+	log('stdin closed');
 });
 //process.stdout.write("hello: ");

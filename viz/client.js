@@ -15,7 +15,7 @@
 import { Node, newEdge } from './graph.js';
 import { drawNode, drawEdge } from './graphics.js';
 
-const socket = new WebSocket('ws://192.168.99.103:8000');
+const socket = new WebSocket('ws://localhost:8000');
 const canvas = document.getElementById('canvas');
 const log = console.log;
 let data = '';
