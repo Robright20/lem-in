@@ -1,5 +1,7 @@
 const nodes = [];
 const edges = [];
+const scale = 20;
+const adjust = {x: 350, y: 150}
 
 nodes.add = function (data) {
 	if (!/^[#L]/.test(data[0])) {
@@ -71,7 +73,10 @@ function createGraph(data) {
 		} else if (/^\w+ \d+ \d+$/.test(data[row])) {
 			cols = data[row].split(' ');
 			node = nodes.add(cols);
-			node.coords = { x: Number(cols[1]), y: Number(cols[2]) };
+			node.coords = {
+				x: Number(cols[1]) * scale + adjust.x,
+				y: Number(cols[2]) * scale + adjust.y
+			};
 			if (cmd === '##start') {
 				nodes.start = node;
 			} else if (cmd === '##end') {

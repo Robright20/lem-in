@@ -29,10 +29,16 @@ socket.addEventListener('message', (msg) => {
 		if (data[0] === '##begin-farm') {
 			createGraph(data);
 			for (let i in nodes) {
-				drawNode(canvas, nodes[i]);
+				if (typeof nodes[i] === 'object')
+					drawNode(canvas, nodes[i]);
+			}
+			for (let i in edges) {
+				if (typeof edges[i] === 'object')
+					drawEdge(canvas, edges[i]);
 			}
 		}
 	} catch(err) {
-		log(msg.data)
+		log(err);
+		log(msg.data);
 	}
 });

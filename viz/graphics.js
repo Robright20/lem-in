@@ -4,8 +4,8 @@ export function drawNode(canvas, node) {
 	node.html = document.createElementNS(svgNS, 'circle');
 
 	node.html.setAttribute('class', 'circle');
-	node.html.setAttribute('cx', node.coords.x * 20 + 350);
-	node.html.setAttribute('cy', node.coords.y * 20 + 120);
+	node.html.setAttribute('cx', node.coords.x);
+	node.html.setAttribute('cy', node.coords.y);
 	node.html.setAttribute('r', node.radius);
 	/* node.html.setAttribute('stroke', 'black');
 	node.html.setAttribute('stroke-width', '3'); */
