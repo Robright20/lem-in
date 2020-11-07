@@ -55,7 +55,7 @@ server.listen(8000, () => log('listening on port: 8000'));
 process.stdin.on('data', inputStdin => {
 	leminData[`msg${msgCount}`] = String(inputStdin).split('\n');
 	if (leminData[`msg${msgCount}`][0] === '##begin-farm')
-		Graph.createGraph(leminData[`msg${msgCount}`])
+		log(Graph.createGraph(leminData[`msg${msgCount}`]));
 	msgCount += 1;
 	if (socket !== '')
 	{

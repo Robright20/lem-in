@@ -12,7 +12,7 @@
  *		`(${x}, ${y})`						*/
 /* ***************************************** */
 
-import { Node, newEdge } from './graph.js';
+import { edges, nodes } from './graph.js';
 import { drawNode, drawEdge } from './graphics.js';
 
 const socket = new WebSocket('ws://localhost:8000');
