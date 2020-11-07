@@ -12,10 +12,10 @@
  *		`(${x}, ${y})`						*/
 /* ***************************************** */
 
-import { edges, nodes } from './graph.js';
+import { createGraph, nodes, edges } from './graph.js';
 import { drawNode, drawEdge } from './graphics.js';
-
-const socket = new WebSocket('ws://localhost:8000');
+const WS_SERVER = 'ws://192.168.99.103:8000';
+const socket = new WebSocket(WS_SERVER);
 const canvas = document.getElementById('canvas');
 const log = console.log;
 let data = '';
@@ -26,8 +26,13 @@ socket.addEventListener('open', (ev) => {
 socket.addEventListener('message', (msg) => {
 	try {
 		data = JSON.parse(msg.data);
-		log(data);
+		if (data[0] === '##begin-farm') {
+			createGraph(data);
+			for (let i in nodes) {
+				drawNode(canvas, nodes[i]);
+			}
+		}
 	} catch(err) {
-		log(msg.data);
+		log(msg.data)
 	}
 });

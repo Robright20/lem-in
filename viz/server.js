@@ -4,7 +4,6 @@
 const fs = require('fs');
 const http = require('http');
 const WebSocket = require('ws');
-const Graph = require('./lib/graph')
 const log = console.log;
 const wss = new WebSocket.Server({ noServer: true });
 const MIMETypes = {
@@ -45,6 +44,14 @@ wss.on('connection', (ws) => {
 	});
 	socket = ws;
 	ws.send("connected to the server");
+	try {
+		for (let data in leminData) {
+			socket.send(JSON.stringify(leminData[data]));
+		}
+		leminData = {};
+	} catch (error) {
+		ws.send("Waiting for the farm...");
+	}
 });
 server.on('upgrade', (req, socket, head) => {
 	wss.handleUpgrade(req, socket, head, (ws) => {
@@ -54,8 +61,6 @@ server.on('upgrade', (req, socket, head) => {
 server.listen(8000, () => log('listening on port: 8000'));
 process.stdin.on('data', inputStdin => {
 	leminData[`msg${msgCount}`] = String(inputStdin).split('\n');
-	if (leminData[`msg${msgCount}`][0] === '##begin-farm')
-		log(Graph.createGraph(leminData[`msg${msgCount}`]));
 	msgCount += 1;
 	if (socket !== '')
 	{

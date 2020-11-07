@@ -36,7 +36,7 @@ class Node {
 		this.coords = {x: 0, y: 0};
 		this.edges = [];
 		this.html = '';
-		this.radius = 20;
+		this.radius = 8;
 	}
 	get name() {
 		return (this._name);
@@ -64,7 +64,7 @@ function createGraph(data) {
 	for (let row in data) {
 		if (/^(#){2}/.test(data[row])) {
 			if (data[row] === '##end-farm') {
-				return nodes;
+				return { nodes: nodes, edges: edges };
 			} else if (cmd === '') {
 				cmd = data[row];
 			}
