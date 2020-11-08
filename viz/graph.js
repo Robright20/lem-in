@@ -88,6 +88,7 @@ function createGraph(data) {
 			edge = newEdge(nodes.find(cols[0]), nodes.find(cols[1]));
 			edges.push(edge);
 			edge.from.addEdge(edge);
+			edge.to.addEdge(edge);
 			cmd = '';
 		}
 	}

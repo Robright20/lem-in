@@ -14,8 +14,8 @@
 
 import { createGraph, nodes, edges } from './graph.js';
 import { drawNode, drawEdge } from './graphics.js';
-// const WS_SERVER = 'ws://192.168.99.103:8000';
-const WS_SERVER = 'ws://localhost:8000';
+const WS_SERVER = 'ws://192.168.99.103:8000';
+//const WS_SERVER = 'ws://localhost:8000';
 const socket = new WebSocket(WS_SERVER);
 const canvas = document.getElementById('canvas');
 const log = console.log;
@@ -29,6 +29,7 @@ socket.addEventListener('message', (msg) => {
 		data = JSON.parse(msg.data);
 		if (data[0] === '##begin-farm') {
 			createGraph(data);
+			log(nodes);
 			for (let i in nodes) {
 				if (typeof nodes[i] === 'object')
 					drawNode(canvas, nodes[i]);

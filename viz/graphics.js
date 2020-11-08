@@ -1,7 +1,7 @@
-export const svgNS = "http://www.w3.org/2000/svg";
+export const SVG_NS = "http://www.w3.org/2000/svg";
 
 export function drawNode(canvas, node) {
-	node.html = document.createElementNS(svgNS, 'circle');
+	node.html = document.createElementNS(SVG_NS, 'circle');
 
 	node.html.setAttribute('class', 'circle');
 	node.html.setAttribute('cx', node.coords.x);
@@ -9,11 +9,12 @@ export function drawNode(canvas, node) {
 	node.html.setAttribute('r', node.radius);
 	/* node.html.setAttribute('stroke', 'black');
 	node.html.setAttribute('stroke-width', '3'); */
+	//node.html.setAttribute('fill', 'hsla(5, 100%,50%,.5)');
 	node.html.setAttribute('fill', 'red');
 	canvas.append(node.html);
 }
 export function drawEdge(canvas, edge) {
-	edge.html = document.createElementNS(svgNS, 'line');
+	edge.html = document.createElementNS(SVG_NS, 'line');
 
 	edge.html.setAttribute('class', 'line');
 	edge.html.setAttribute('x1', edge.from.coords.x);
