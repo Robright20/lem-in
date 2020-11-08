@@ -1,13 +1,17 @@
 const nodes = [];
 const edges = [];
 const scale = 20;
-const adjust = {x: 350, y: 150}
+const adjust = {x: 300, y: 250}
 
 nodes.add = function (data) {
 	if (!/^[#L]/.test(data[0])) {
 		let node = new Node(data[0]);
 
-		node.coords = { x: Number(data[1]), y: Number(data[2]) };
+		node.coords = {
+			x: Number(data[1]) * scale + adjust.x,
+			y: Number(data[2]) * scale + adjust.y
+		};
+		// node.coords = { x: Number(data[1]), y: Number(data[2]) };
 		if (this.start === node.name) {
 			this.start = node;
 		} else if (this.end === node.name) {
@@ -73,17 +77,13 @@ function createGraph(data) {
 		} else if (/^\w+ \d+ \d+$/.test(data[row])) {
 			cols = data[row].split(' ');
 			node = nodes.add(cols);
-			node.coords = {
-				x: Number(cols[1]) * scale + adjust.x,
-				y: Number(cols[2]) * scale + adjust.y
-			};
 			if (cmd === '##start') {
 				nodes.start = node;
 			} else if (cmd === '##end') {
 				nodes.end = node;
 			}
 			cmd = '';
-		} else if (/^\w+-\w+$/.test(data[row])) {
+		} else if (/^\w+-\w+$/.test(data[row]) && !/^[L#]/.test(data[row])) {
 			cols = data[row].split('-');
 			edge = newEdge(nodes.find(cols[0]), nodes.find(cols[1]));
 			edges.push(edge);
