@@ -1,7 +1,9 @@
 const nodes = [];
 const edges = [];
+const layers = [];
 const scale = 20;
 const adjust = {x: 300, y: 250}
+const log = console.log;
 
 nodes.add = function (data) {
 	if (!/^[#L]/.test(data[0])) {
@@ -94,4 +96,9 @@ function createGraph(data) {
 	}
 }
 
-export { createGraph, nodes, edges };
+function build_layers(nodes) {
+	let cur = 0;
+	layers[0] = [nodes['start']];
+	return (layers);
+}
+export { createGraph, nodes, edges, build_layers, layers };

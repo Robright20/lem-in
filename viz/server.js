@@ -73,5 +73,6 @@ process.stdin.on('data', inputStdin => {
 });
 process.stdin.on('end', _val => {
 	log('stdin closed');
+	process.exit();
 });
 //process.stdout.write("hello: ");

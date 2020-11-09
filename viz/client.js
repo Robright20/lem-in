@@ -12,7 +12,7 @@
  *		`(${x}, ${y})`						*/
 /* ***************************************** */
 
-import { createGraph, nodes, edges } from './graph.js';
+import { createGraph, nodes, edges, build_layers, layers } from './graph.js';
 import { drawNode, drawEdge } from './graphics.js';
 const WS_SERVER = 'ws://192.168.99.103:8000';
 //const WS_SERVER = 'ws://localhost:8000';
@@ -29,7 +29,7 @@ socket.addEventListener('message', (msg) => {
 		data = JSON.parse(msg.data);
 		if (data[0] === '##begin-farm') {
 			createGraph(data);
-			log(nodes);
+			build_layers(nodes);
 			for (let i in nodes) {
 				if (typeof nodes[i] === 'object')
 					drawNode(canvas, nodes[i]);
