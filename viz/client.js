@@ -23,6 +23,7 @@ let data = '';
 
 socket.addEventListener('open', (ev) => {
 	socket.send('hello Server');
+	setTimeout(function(){ socket.send('##get-farm'); }, 3000);
 });
 socket.addEventListener('message', (msg) => {
 	try {data = JSON.parse(msg.data);}catch(err){ log('failed to parse: msg => [%s]', msg.data)}

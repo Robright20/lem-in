@@ -23,6 +23,8 @@ let type = '';
 let socket = '';
 let leminData = {};
 let msgCount = 0;
+let msgToSend = '';
+let farmData = '';
 
 const server = http.createServer((req, res) => {
 	uri = (req.url === '/') ? ['index.html'] : req.url.split('/');
@@ -40,19 +42,24 @@ const server = http.createServer((req, res) => {
 });
 
 wss.on('connection', (ws) => {
-	ws.on('message', (msg) => {
-		log('received: %s', msg);
-	});
 	socket = ws;
 	ws.send("connected to the server");
 	try {
 		for (let data in leminData) {
-			socket.send(JSON.stringify(leminData[data]));
+			msgToSend = JSON.stringify(leminData[data]);
+			//ws.send(msgToSend);
+			if (leminData['msg0'][0] === '##begin-farm')
+				farmData = msgToSend;
 		}
 		leminData = {};
 	} catch (error) {
 		ws.send("Waiting for the farm...");
 	}
+	ws.on('message', (msg) => {
+		log('received: %s', msg);
+		if (msg === '##get-farm')
+			ws.send(farmData);
+	});
 });
 
 server.on('upgrade', (req, socket, head) => {
