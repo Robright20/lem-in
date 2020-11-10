@@ -98,11 +98,11 @@ function createGraph(data) {
 
 function build_layers(nodes) {
 	let cur = 0;
-	let maxHeight = 1;
 	let edge = [];
 	let to = {};
 	layers[0] = [nodes[0]];
 	nodes[0].visited = true;
+
 	do {
 		layers[cur].forEach(node => {
 			node.edges.forEach(edgeId => {
@@ -119,10 +119,7 @@ function build_layers(nodes) {
 			})
 		});
 		cur += 1;
-		if (layers[cur] && maxHeight < layers[cur].length)
-			maxHeight = layers[cur].length;
 	} while (layers[cur]);
-	layers.height = maxHeight;
 	return (layers);
 }
 
