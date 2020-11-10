@@ -38,6 +38,7 @@ const server = http.createServer((req, res) => {
 		res.end();
 	}); 
 });
+
 wss.on('connection', (ws) => {
 	ws.on('message', (msg) => {
 		log('received: %s', msg);
@@ -53,26 +54,28 @@ wss.on('connection', (ws) => {
 		ws.send("Waiting for the farm...");
 	}
 });
+
 server.on('upgrade', (req, socket, head) => {
 	wss.handleUpgrade(req, socket, head, (ws) => {
 		wss.emit('connection', ws, req);
 	});
 });
+
 server.listen(8000, () => log('listening on port: 8000'));
+
 process.stdin.on('data', inputStdin => {
 	leminData[`msg${msgCount}`] = String(inputStdin).split('\n');
 	msgCount += 1;
 	if (socket !== '')
 	{
-		//socket.send(JSON.stringify(leminData));
 		for (let data in leminData) {
 			socket.send(JSON.stringify(leminData[data]));
 		}
 		leminData = {};
 	}
 });
+
 process.stdin.on('end', _val => {
 	log('stdin closed');
 	process.exit();
 });
-//process.stdout.write("hello: ");

@@ -12,3 +12,6 @@ for every (elem) in layers[cur]
 		push (n) to layers[cur + 1]
 cur += 1
 if (layer[cur]) exist, goto #loop
+
+//goodbyes post malone
+// je te pardonnes

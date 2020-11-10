@@ -1,11 +1,12 @@
-const nodes = [];
+'use strict'
+const log = console.log;
+const nodes = ['start', 'end'];
 const edges = [];
 const layers = [];
 const scale = 20;
 const adjust = {x: 300, y: 250}
-const log = console.log;
 
-nodes.add = function (data) {
+nodes.add = function (data, cmd) {
 	if (!/^[#L]/.test(data[0])) {
 		let node = new Node(data[0]);
 
@@ -13,16 +14,20 @@ nodes.add = function (data) {
 			x: Number(data[1]) * scale + adjust.x,
 			y: Number(data[2]) * scale + adjust.y
 		};
-		// node.coords = { x: Number(data[1]), y: Number(data[2]) };
-		if (this.start === node.name) {
-			this.start = node;
-		} else if (this.end === node.name) {
-			this.end = node;
+		node.id = nodes.length;
+		if (cmd === '##start') {
+			this[0] = node;
+			node.id = 0;
+		} else if (cmd === '##end') {
+			this[1] = node;
+			node.id = 1;
+		} else {
+			nodes.push(node);
 		}
-		nodes.push(node);
 		return node;
 	}
 }
+
 nodes.find = function(name) {
 	for (const key in this) {
 		if (this[key].name === name) {
@@ -30,44 +35,42 @@ nodes.find = function(name) {
 		}
 	}
 }
+
 const newEdge = (from, to) => {
 	if (from && to) {
 		return ({
-			from: from,
-			to: to
+			_from: from.id,
+			_to: to.id,
+			get from() {
+				return (nodes[this._from]);
+			},
+			get to() {
+				return (nodes[this._to]);
+			},
+			set from(node) {
+				this._from = node.id;
+			},
+			set to(node) {
+				this._to = node.id;
+			}
 		});
 	}
 };
+
 class Node {
 	constructor(name) {
-		this._name = name;
+		this.name = name;
 		this.coords = {x: 0, y: 0};
 		this.edges = [];
 		this.html = '';
 		this.radius = 8;
 	}
-	get name() {
-		return (this._name);
-	}
-	linkWith(node) {
-		let edge = newEdge(this, node);
-	
-		if (edge) {
-			this.edges.push(edge);
-			return (edge);
-		}
-	}
-	addEdge(edge) {
-		this.edges.push(edge);
-	}
 }
+
 function createGraph(data) {
 	let cols = [];
-	let node = null;
 	let edge = {};
 	let cmd = '';
-	nodes.start = '';
-	nodes.end = '';
 
 	for (let row in data) {
 		if (/^(#){2}/.test(data[row])) {
@@ -78,19 +81,16 @@ function createGraph(data) {
 			}
 		} else if (/^\w+ \d+ \d+$/.test(data[row])) {
 			cols = data[row].split(' ');
-			node = nodes.add(cols);
-			if (cmd === '##start') {
-				nodes.start = node;
-			} else if (cmd === '##end') {
-				nodes.end = node;
-			}
+			nodes.add(cols, cmd);
 			cmd = '';
 		} else if (/^\w+-\w+$/.test(data[row]) && !/^[L#]/.test(data[row])) {
 			cols = data[row].split('-');
 			edge = newEdge(nodes.find(cols[0]), nodes.find(cols[1]));
-			edges.push(edge);
-			edge.from.addEdge(edge);
-			edge.to.addEdge(edge);
+			if (edge) {
+				edge.from.edges.push(edges.length);
+				edge.to.edges.push(edges.length);
+				edges.push(edge);
+			}
 			cmd = '';
 		}
 	}
@@ -98,7 +98,29 @@ function createGraph(data) {
 
 function build_layers(nodes) {
 	let cur = 0;
-	layers[0] = [nodes['start']];
+	let edge = [];
+	let to = {};
+	layers[0] = [nodes[0]];
+	nodes[0].visited = true;
+	do {
+		layers[cur].forEach(node => {
+			node.edges.forEach(edgeId => {
+				edge = edges[edgeId];
+				to = node === edge.from ? edge.to : edge.from;
+				if (to.visited === undefined) {
+					log(to.name)
+					to.visited = true;
+					if (layers[cur + 1]) {
+						layers[cur + 1].push(to);
+					} else {
+						layers[cur + 1] = [to];
+					}
+				}
+			})
+		});
+		cur += 1;
+	} while (layers[cur]);
 	return (layers);
 }
+
 export { createGraph, nodes, edges, build_layers, layers };
