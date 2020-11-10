@@ -76,7 +76,7 @@ function createGraph(data) {
 		if (/^(#){2}/.test(data[row])) {
 			if (data[row] === '##end-farm') {
 				return { nodes: nodes, edges: edges };
-			} else if (cmd === '') {
+			} else if ((data[row] == '##start' || data[row] == '##end') && cmd === '') {
 				cmd = data[row];
 			}
 		} else if (/^\w+ \d+ \d+$/.test(data[row])) {
@@ -90,14 +90,15 @@ function createGraph(data) {
 				edge.from.edges.push(edges.length);
 				edge.to.edges.push(edges.length);
 				edges.push(edge);
+				cmd = '';
 			}
-			cmd = '';
 		}
 	}
 }
 
 function build_layers(nodes) {
 	let cur = 0;
+	let maxHeight = 1;
 	let edge = [];
 	let to = {};
 	layers[0] = [nodes[0]];
@@ -108,7 +109,6 @@ function build_layers(nodes) {
 				edge = edges[edgeId];
 				to = node === edge.from ? edge.to : edge.from;
 				if (to.visited === undefined) {
-					log(to.name)
 					to.visited = true;
 					if (layers[cur + 1]) {
 						layers[cur + 1].push(to);
@@ -119,7 +119,10 @@ function build_layers(nodes) {
 			})
 		});
 		cur += 1;
+		if (layers[cur] && maxHeight < layers[cur].length)
+			maxHeight = layers[cur].length;
 	} while (layers[cur]);
+	layers.height = maxHeight;
 	return (layers);
 }
 

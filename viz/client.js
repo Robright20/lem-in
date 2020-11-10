@@ -14,8 +14,8 @@
 
 import { createGraph, nodes, edges, build_layers, layers } from './graph.js';
 import { drawNode, drawEdge } from './graphics.js';
-//const WS_SERVER = 'ws://192.168.99.103:8000';
-const WS_SERVER = 'ws://localhost:8000';
+const WS_SERVER = 'ws://192.168.99.103:8000';
+//const WS_SERVER = 'ws://localhost:8000';
 const socket = new WebSocket(WS_SERVER);
 const canvas = document.getElementById('canvas');
 const log = console.log;
