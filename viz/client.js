@@ -33,13 +33,13 @@ socket.addEventListener('message', (msg) => {
 			build_layers(nodes);
 			updatePositions(canvas, layers);
 			log(layers, nodes, edges);
-			for (let i in nodes) {
-				if (typeof nodes[i] === 'object')
-					drawNode(canvas, nodes[i]);
-			}
 			for (let i in edges) {
 				if (typeof edges[i] === 'object')
 					drawEdge(canvas, edges[i]);
+			}
+			for (let i in nodes) {
+				if (typeof nodes[i] === 'object')
+					drawNode(canvas, nodes[i]);
 			}
 		}
 	} catch(err) {
