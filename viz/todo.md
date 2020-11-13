@@ -52,4 +52,6 @@ for every layer with (id < layers_x_pivot)
 - create a new function [updatePositions]
 - move the map on the [Xaxis] & [Yaxis]
 - remove try/catch after the JSONparse attempt
-- 
+- pause the traffic
+- colorier les arretes des chemins trouve
+- use adjacency list

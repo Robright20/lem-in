@@ -1,5 +1,5 @@
 'use strict'
-const padding = {x: 50, y: 10};
+const padding = {x: 20, y: 30};
 const SVG_NS = "http://www.w3.org/2000/svg";
 
 export function drawNode(canvas, node) {
