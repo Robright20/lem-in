@@ -45,10 +45,11 @@ for every layer with (id < layers_x_pivot)
 
 
 
+
 - fix the export alerts
 - display the number of ants in the [start] and [end] rooms
-- display controls for the [Xpadding] and [Ypadding]
-- change the function name [updatePositions]
++ display controls for the [Xpadding] and [Ypadding]
++ change the function name [updatePositions]
 - create a new function [updatePositions]
 - move the map on the [Xaxis] & [Yaxis]
 - remove try/catch after the JSONparse attempt

@@ -87,6 +87,7 @@ function createGraph(data) {
 			cols = data[row].split('-');
 			edge = newEdge(nodes.find(cols[0]), nodes.find(cols[1]));
 			if (edge) {
+				edge.id = edges.length;
 				edge.from.edges.push(edges.length);
 				edge.to.edges.push(edges.length);
 				edges.push(edge);
