@@ -19,20 +19,34 @@ body {
 	height: 80%;
 	margin: auto;
 }
+
 h1 {
 	text-align: center;
 }
 
 #controls {
-	position: relative;
+	display: inline-block;
 	border: 1px solid burlywood;
 	width: 15%;
 	font-size: 0.6em;
 	margin-left: 5%;
-	margin-top: 1%;
 	padding: 1%;
 	min-width: 250px;
 	min-height: 125px;
+}
+
+#states {
+	display: inline-block;
+	border: 1px solid burlywood;
+	width: 15%;
+	font-size: 0.6em;
+	padding: 1%;
+	min-width: 250px;
+	min-height: 125px;
+}
+
+#states div {
+	display: inline-block;
 }
 
 #controls input {

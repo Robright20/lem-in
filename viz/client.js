@@ -13,14 +13,16 @@
 /* ***************************************** */
 
 import { createGraph, nodes, edges, build_layers, layers } from './graph.js';
-import { assignLayerPos, drawNode, drawEdge, updatePositions, updateMap } from './graphics.js';
-const WS_SERVER = 'ws://192.168.99.103:8000';
-//const WS_SERVER = 'ws://localhost:8000';
+import { assignLayerPos, drawNode, drawEdge, updatePositions, updateMap, updateNodesColor, updateEdgesColor } from './graphics.js';
+//const WS_SERVER = 'ws://192.168.99.103:8000';
+const WS_SERVER = 'ws://localhost:8000';
 const socket = new WebSocket(WS_SERVER);
 const canvas = document.getElementById('canvas');
 const xpadding = document.getElementById('Xpadding')
 const ypadding = document.getElementById('Ypadding')
-const padding = {}
+const nodesColor = document.getElementById('nodesColor')
+const edgesColor = document.getElementById('edgesColor')
+const padding = {x: 20, y: 30};
 const log = console.log;
 let data = '';
 
@@ -57,8 +59,17 @@ xpadding.oninput = function() {
 	updatePositions(canvas, layers, padding);
 	updateMap(nodes, edges);
 }
+
 ypadding.oninput = function() {
 	padding.y = this.value;
 	updatePositions(canvas, layers, padding);
 	updateMap(nodes, edges);
+}
+
+nodesColor.oninput = function() {
+	updateNodesColor(nodes, this.value);
+}
+
+edgesColor.oninput = function() {
+	updateEdgesColor(edges, this.value);
 }

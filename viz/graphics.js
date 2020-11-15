@@ -109,3 +109,17 @@ export const updateMap = (nodes, edges) => {
 			updateNodePos(nodes[i]);
 	}
 }
+
+export const updateNodesColor = (nodes, color) => {
+	for (let i in nodes) {
+		if (typeof nodes[i] === 'object')
+			nodes[i].html.setAttribute('fill', color);
+	}
+}
+
+export const updateEdgesColor = (edges, color) => {
+	for (let i in edges) {
+		if (typeof edges[i] === 'object')
+			edges[i].html.setAttribute('stroke', color);
+	}
+}
