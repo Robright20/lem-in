@@ -46,11 +46,22 @@ for every layer with (id < layers_x_pivot)
 
 
 
+			//states[0].innerText = "Start\n\n" + antSize
+			// log(states[0].className)
+			// log(states[0].children[1].className)
+			// states[0].children[1].innerText = antSize
+			// log(states[0].children[1].innerText)
+			//startRoom.innerText = antSize;
+
+
+
 - fix the export alerts
-- display the number of ants in the [start] and [end] rooms
+- display the number of ants in the [end] rooms
++ display the number of ants in the [start] 
++ struture the states
 + display controls for the [Xpadding] and [Ypadding]
 + change the function name [updatePositions]
-- create a new function [updatePositions]
++ create a new function [updatePositions]
 - move the map on the [Xaxis] & [Yaxis]
 - remove try/catch after the JSONparse attempt
 - pause the traffic
@@ -62,3 +73,14 @@ for every layer with (id < layers_x_pivot)
 - click on a node and the info appear in the corner about that node.
 - stop the executable and keep the map state in the memory.
 - use the cache
+- react when mouse hover the states
+- makes the client independant from the server
+- saves all data to make a microservices arch
+- updates only when new data available.
+
+when add args --viz ?
+	run the server
+	server runing
+	waiting the browser to be open
+	the browser sends [exit]
+

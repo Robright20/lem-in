@@ -14,17 +14,21 @@
 
 import { createGraph, nodes, edges, build_layers, layers } from './graph.js';
 import { assignLayerPos, drawNode, drawEdge, updatePositions, updateMap, updateNodesColor, updateEdgesColor } from './graphics.js';
-//const WS_SERVER = 'ws://192.168.99.103:8000';
-const WS_SERVER = 'ws://localhost:8000';
+const WS_SERVER = 'ws://192.168.99.103:8000';
+// const WS_SERVER = 'ws://localhost:8000';
 const socket = new WebSocket(WS_SERVER);
 const canvas = document.getElementById('canvas');
 const xpadding = document.getElementById('Xpadding')
 const ypadding = document.getElementById('Ypadding')
 const nodesColor = document.getElementById('nodesColor')
 const edgesColor = document.getElementById('edgesColor')
+const states = document.getElementsByClassName('states')
+const startRoom = states[0]
+const endRoom = states[1]
 const padding = {x: 20, y: 30};
 const log = console.log;
 let data = '';
+let antSize = 0;
 
 socket.addEventListener('open', (ev) => {
 	socket.send('hello Server');
@@ -35,6 +39,8 @@ socket.addEventListener('message', (msg) => {
 	try {data = JSON.parse(msg.data);}catch(err){ log('failed to parse: msg => [%s]', msg.data)}
 	try {
 		if (data[0] === '##begin-farm') {
+			antSize = getAntSize(data)
+			startRoom.children[1].innerText = antSize
 			createGraph(data);
 			build_layers(nodes);
 			assignLayerPos(canvas, layers);
@@ -53,6 +59,15 @@ socket.addEventListener('message', (msg) => {
 		log(msg.data);
 	}
 });
+
+function getAntSize(data) {
+	for (let row in data) {
+		if (/^\d+$/.test(data[row])) {
+			return Number(data[row]);
+		}
+	}
+	return 0;
+}
 
 xpadding.oninput = function() {
 	padding.x = this.value;

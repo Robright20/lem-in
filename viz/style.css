@@ -1,3 +1,7 @@
+* {
+	box-sizing: border-box;
+}
+
 html {
 	top: 0;
 	margin: 0;
@@ -8,48 +12,68 @@ html {
 body {
 	margin: 0;
 	padding: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
 	height: 100%;
 }
 
-#canvas {
-	position: relative;
-	display: block;
-	border: 4px solid #0a0f1d;
-	width: 90%;
-	height: 80%;
-	margin: auto;
-}
-
-h1 {
+.main-title {
 	text-align: center;
 }
 
-#controls {
-	display: inline-block;
-	border: 1px solid burlywood;
-	width: 15%;
-	font-size: 0.6em;
-	margin-left: 5%;
-	padding: 1%;
-	min-width: 250px;
-	min-height: 125px;
+#canvas {
+	border: 4px solid #0a0f1d;
+	width: 80%;
+	height: 80%;
 }
 
-#states {
-	display: inline-block;
-	border: 1px solid burlywood;
-	width: 15%;
-	font-size: 0.6em;
-	padding: 1%;
-	min-width: 250px;
-	min-height: 125px;
+#info {
+	display: flex;
+	justify-content: space-around;
+	border: 4px solid #0a0f1d;
+	width: 80%;
+	height: 10%;
 }
 
-#states div {
-	display: inline-block;
+#info div {
+	display: flex;
+	/* border: 1px solid dodgerblue; */
 }
 
-#controls input {
-	display: block;
-	margin-top: 0.6em;
+.controls {
+	width: 10em;
+}
+
+.c-pad {
+	flex-wrap: wrap;
+}
+
+.c-colors {
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.states {
+	/* border: 1px solid dodgerblue; */
+	align-self: center;
+	flex-flow: column wrap;
+	justify-content: space-around;
+	width: 5em;
+	height: 5em;
+}
+
+.s-title {
+	margin: 0;
+	text-align: center;
+	border: 1px solid red;
+}
+
+.s-value {
+	margin: 0;
+	/* border: 1px solid red; */
+	font-size: 2.5em;
+	text-align: center;
 }

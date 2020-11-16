@@ -7,22 +7,25 @@
 	</head>
 
 	<body>
-		<h1>Lem_in : Vizualizer</h1>
+		<h1 class="main-title">Lem_in : Vizualizer</h1>
 		<svg id="canvas" xmlns="http://www.w3.org/2000/svg">
 		</svg>
-		<div id="controls">
-			<h1>Controls</h1>
-			<input type="color" id="nodesColor" name="nodesColor" value="#ff0000">
-			<input type="color" id="edgesColor" name="edgesColor" value="#000000">
-			<input type="range" min="1" max="100" value="50" id="Xpadding">
-			<input type="range" min="1" max="100" value="50" id="Ypadding">
-		</div>
-		<div id="states">
-			<div id="start">
-				<h1>Start</h1>
+		<div id="info">
+			<div class='controls c-colors'>
+				<input type="color" id="nodesColor" name="nodesColor" value="#ff0000">
+				<input type="color" id="edgesColor" name="edgesColor" value="#000000">
 			</div>
-			<div id="end">
-			<h1>End</h1>
+			<div class='controls c-pad'>
+				<input type="range" min="1" max="100" value="50" id="Xpadding">
+				<input type="range" min="1" max="100" value="50" id="Ypadding">
+			</div>
+			<div class="states s-start">
+				<p class="s-title">Start</p>
+				<p class="s-value">0</p>
+			</div>
+			<div class="states s-end">
+				<p class="s-title">End</p>
+				<p class="s-value">0</p>
 			</div>
 		</div>
 		<script type="module" src="client.js"></script>
