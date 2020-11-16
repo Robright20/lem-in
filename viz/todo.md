@@ -78,6 +78,20 @@ for every layer with (id < layers_x_pivot)
 - saves all data to make a microservices arch
 - updates only when new data available.
 
+
+##visiting-node [name]
+
+##visited-node [name]
+
+##visit-edge [from-to]
+
+
+create a new class Visualizer
+add a router
+use the symbol primitive for all the object that i have
+use it to retrieve them
+think of using the name to access objects
+
 when add args --viz ?
 	run the server
 	server runing

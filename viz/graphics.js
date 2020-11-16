@@ -21,7 +21,7 @@ export function drawEdge(canvas, edge) {
 	edge.html = document.createElementNS(SVG_NS, 'line');
 
 	edge.html.setAttribute('class', 'line');
-	edge.html.setAttribute('id', 'edge-' + edge.id)
+	edge.html.setAttribute('id', edge.name)
 	edge.html.setAttribute('x1', edge.from.coords.x);
 	edge.html.setAttribute('y1', edge.from.coords.y);
 	edge.html.setAttribute('x2', edge.to.coords.x);

@@ -36,6 +36,14 @@ nodes.find = function(name) {
 	}
 }
 
+edges.find = function(name) {
+	for (const key in this) {
+		if (this[key].name === name) {
+			return this[key];
+		}
+	}
+}
+
 const newEdge = (from, to) => {
 	if (from && to) {
 		return ({
@@ -88,6 +96,7 @@ function createGraph(data) {
 			edge = newEdge(nodes.find(cols[0]), nodes.find(cols[1]));
 			if (edge) {
 				edge.id = edges.length;
+				edge.name = data[row];
 				edge.from.edges.push(edges.length);
 				edge.to.edges.push(edges.length);
 				edges.push(edge);
