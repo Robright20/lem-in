@@ -45,13 +45,20 @@ int		ft_putendl(int fd, char *s)
 	return (len + 1);
 }
 
-void	ft_putdata(int fd, char *data, char *type)
+void	ft_putfarm(int fd, char *data, char *type)
 {
 		ft_putstr(fd, "##begin-");
 		ft_putendl(fd, type);
 		ft_putstr(fd, data);
 		ft_putstr(fd, "##end-");
 		ft_putendl(fd, type);
+}
+
+void	ft_putcmd(int fd, char *type, char *data)
+{
+		ft_putstr(fd, type);
+		ft_putstr(fd, " ");
+		ft_putendl(fd, data);
 }
 
 void	u_realloc(char **res, int pos, int ret)
@@ -113,7 +120,9 @@ int		main(void)
 	else if (child > 0)
 	{
 		close(fd[0]);
-		ft_putdata(fd[1], farm.val, "farm");
+		ft_putfarm(fd[1], farm.val, "farm");
+		sleep(3);
+		ft_putcmd(fd[1], "##visiting-node", "1");
 		wait(NULL);
 	}
 	else

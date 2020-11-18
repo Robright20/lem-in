@@ -63,7 +63,8 @@ for every layer with (id < layers_x_pivot)
 + change the function name [updatePositions]
 + create a new function [updatePositions]
 - move the map on the [Xaxis] & [Yaxis]
-- remove try/catch after the JSONparse attempt
++ remove try/catch after the JSONparse attempt
++ send instructions from the exec.
 - pause the traffic
 - colorier les arretes des chemins trouve
 - use adjacency list
@@ -77,7 +78,14 @@ for every layer with (id < layers_x_pivot)
 - makes the client independant from the server
 - saves all data to make a microservices arch
 - updates only when new data available.
-
+- save the farm in cookies.
+- save the static files
+- check if all the node name is really alphanum
+- edit room's radius.
+- move nodes with dragndrop
+- move layers also
+- build a lookup table with element like {name: id}
+- use the lookup table to find elements.
 
 ##visiting-node [name]
 
@@ -85,10 +93,15 @@ for every layer with (id < layers_x_pivot)
 
 ##visit-edge [from-to]
 
+##begin-farm
+##end-farm
+
+ayoub, he can also use electron.js to open a browser
+and run the app inside of it.
 
 create a new class Visualizer
 add a router
-use the symbol primitive for all the object that i have
+[x] - use the symbol primitive for all the object that i have
 use it to retrieve them
 think of using the name to access objects
 

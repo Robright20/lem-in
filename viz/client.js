@@ -14,8 +14,8 @@
 
 import { createGraph, nodes, edges, build_layers, layers } from './graph.js';
 import { assignLayerPos, drawNode, drawEdge, updatePositions, updateMap, updateNodesColor, updateEdgesColor } from './graphics.js';
-const WS_SERVER = 'ws://192.168.99.103:8000';
-// const WS_SERVER = 'ws://localhost:8000';
+// const WS_SERVER = 'ws://192.168.99.103:8000';
+const WS_SERVER = 'ws://localhost:8000';
 const socket = new WebSocket(WS_SERVER);
 const canvas = document.getElementById('canvas');
 const xpadding = document.getElementById('Xpadding')
@@ -27,37 +27,35 @@ const startRoom = states[0]
 const endRoom = states[1]
 const padding = {x: 20, y: 30};
 const log = console.log;
-let data = '';
+let socketData = [];
 let antSize = 0;
+let farmEvents = {}
+
+farmEvents.on = function(event, action) {
+	if (!this.callbacks) this.callbacks = {};
+	this.callbacks[event] = action;
+}
+
+farmEvents.emit = function(event, data) {
+	if (this.callbacks.hasOwnProperty(event)) (this.callbacks[event])(data);
+}
+
+farmEvents.drawn = new Promise((resolve) => {
+	farmEvents.on('farmDrawn', (res) => {resolve(res)});
+})
 
 socket.addEventListener('open', (ev) => {
 	socket.send('hello Server');
-	setTimeout(function(){ socket.send('##get-farm'); }, 500);
+	setTimeout(() => { socket.send('##get-farm'); }, 1000);
 });
 
 socket.addEventListener('message', (msg) => {
-	try {data = JSON.parse(msg.data);}catch(err){ log('failed to parse: msg => [%s]', msg.data)}
-	try {
-		if (data[0] === '##begin-farm') {
-			antSize = getAntSize(data)
-			startRoom.children[1].innerText = antSize
-			createGraph(data);
-			build_layers(nodes);
-			assignLayerPos(canvas, layers);
-			log(layers, nodes, edges);
-			for (let i in edges) {
-				if (typeof edges[i] === 'object')
-					drawEdge(canvas, edges[i]);
-			}
-			for (let i in nodes) {
-				if (typeof nodes[i] === 'object')
-					drawNode(canvas, nodes[i]);
-			}
-		}
-	} catch(err) {
-		log(err);
-		log(msg.data);
+	try {socketData = JSON.parse(msg.data);}catch(err){socketData.push(msg.data)}
+	if (socketData[0] === '##begin-farm') setup(socketData);
+	else if (/#visiting-node \w+/.test(socketData[0])) {
+		setNodeStatus('visiting', socketData[0].split(' ')[1])
 	}
+	log(socketData)
 });
 
 function getAntSize(data) {
@@ -87,4 +85,36 @@ nodesColor.oninput = function() {
 
 edgesColor.oninput = function() {
 	updateEdgesColor(edges, this.value);
+}
+
+const setNodeStatus = async function (status, nodeName) {
+	let node = {}
+	let data = await farmEvents.drawn;
+	if (status === 'visiting') {
+		node = data.nodes.find(nodeName)
+		if (node) {
+			node.html.setAttribute('stroke', 'black');
+			node.html.setAttribute('stroke-width', '3');
+		} else {
+			log('setNodeStatus: %s not found', nodeName)
+		}
+	}
+}
+
+const setup = function(farm) {
+	antSize = getAntSize(farm)
+	startRoom.children[1].innerText = antSize
+	createGraph(farm);
+	build_layers(nodes);
+	assignLayerPos(canvas, layers);
+	log(layers, nodes, edges);
+	for (let i in edges) {
+		if (typeof edges[i] === 'object')
+			drawEdge(canvas, edges[i]);
+	}
+	for (let i in nodes) {
+		if (typeof nodes[i] === 'object')
+			drawNode(canvas, nodes[i]);
+	}
+	farmEvents.emit('farmDrawn', {layers, nodes, edges});
 }
