@@ -122,7 +122,9 @@ int		main(void)
 		close(fd[0]);
 		ft_putfarm(fd[1], farm.val, "farm");
 		sleep(3);
-		ft_putcmd(fd[1], "##visiting-node", "1");
+		ft_putcmd(fd[1], "##visited-node", "1");
+		sleep(3);
+		ft_putcmd(fd[1], "##visited-edge", "1-3");
 		wait(NULL);
 	}
 	else

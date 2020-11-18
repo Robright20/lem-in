@@ -3,12 +3,12 @@
 'use strict';
 const fs = require('fs');
 const http = require('http');
-const events = require('events')
 const WebSocket = require('ws');
 const wss = new WebSocket.Server({ noServer: true });
 const MIMETypes = require('./mime')
 const log = console.log;
 let states = {}
+const events = []
 let client = {}
 let leminData = {};
 let msgCount = 0;
@@ -17,6 +17,16 @@ let farmData = [];
 const clientState = new Promise((resolve) => {
 	states['farmSent'] = (res) => {resolve(res)};
 })
+events[0] = clientState;
+
+const createEvent = () => {
+	let result = {}
+
+	result.promise = new Promise((resolve) => {
+		result.resolve = (res) => {resolve(res)};
+	})
+	return result;
+}
 
 const server = http.createServer((req, res) => {
 	let uri = (req.url === '/') ? ['index.html'] : req.url.split('/');
@@ -55,12 +65,16 @@ process.stdin.on('data', async (inputStdin) => {
 	leminData[`msg${msgCount}`] = String(inputStdin).split('\n');
 	if (leminData[`msg${msgCount}`][0] === '##begin-farm')
 		getFarmData(leminData[`msg${msgCount}`])
-	let res = await clientState;
+	msgCount += 1;
+	let ev = createEvent()
+	let prev = events.shift();
+	events.push(ev.promise);
+	let res = await prev;
 	for (const key in leminData) {
 		res.send(JSON.stringify(leminData[key]));
 		delete leminData[key]
 	}
-	msgCount += 1;
+	ev.resolve(res)
 });
 
 process.stdin.on('end', _val => {

@@ -65,6 +65,10 @@ for every layer with (id < layers_x_pivot)
 - move the map on the [Xaxis] & [Yaxis]
 + remove try/catch after the JSONparse attempt
 + send instructions from the exec.
++ execute exec's instructions.
+- get the ant movements.
+- create the lib
+- test it with the project.
 - pause the traffic
 - colorier les arretes des chemins trouve
 - use adjacency list
