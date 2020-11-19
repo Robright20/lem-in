@@ -22,6 +22,8 @@ typedef struct	s_str
 	size_t	len;
 }				t_str;
 
+void    print_memory(const void *addr, size_t size);
+
 int		ft_putstr(int fd, char *s)
 {
 	int		len;
@@ -69,7 +71,7 @@ void	u_realloc(char **res, int pos, int ret)
 	tmp = (char *)malloc(2 + pos + ret);
 	if (!tmp)
 	{
-		perror("update result");
+		perror("u_realloc");
 		exit(EXIT_FAILURE);
 	}
 	i = -1;
@@ -105,11 +107,79 @@ t_str	get_farm(void)
 	return (res);
 }
 
+char	*get_node(char *line)
+{
+	char	*tmp;
+	int		len;
+	int		count;
+	int		size;
+
+	len = 0;
+	count = 0;
+	size = 0;
+	while (line[len] && line[len] != '\n')
+	{
+		if (!count)
+			size++;
+		if (line[len] == ' ' || line[len] == '\t')
+		{
+			while (line[len] == ' ' || line[len] == '\t')
+				len++;
+			count++;
+			continue ;
+		}
+		len++;
+	}
+	if (count == 2)
+	{
+		tmp = (char *)malloc(size + 1);
+		if (!tmp)
+			exit(EXIT_FAILURE);
+		len = -1;
+		while (++len < size)
+			tmp[len] = line[len];
+		tmp[len] = 0;
+		return (tmp);
+	}
+	return (NULL);
+}
+
+char	*get_edge(char *line)
+{
+	int		len;
+	int		dash_count;
+	char	*tmp;
+	int		i;
+
+	len = 0;
+	dash_count = 0;
+	while (line[len] && line[len] != '\n')
+	{
+		if (line[len] == '-')
+			dash_count += 1;
+		len++;
+	}
+	if (dash_count == 1)
+	{
+		tmp = (char *)malloc(len);
+		if (!tmp)
+			exit(EXIT_FAILURE);
+		i = -1;
+		while (++i < len)
+			tmp[i] = line[i];
+		tmp[len] = 0;
+		return (tmp);
+	}
+	return (NULL);
+}
+
 int		main(void)
 {
 	pid_t	child;
 	int		fd[2];
 	t_str	farm;
+	char	*res;
+	int		i;
 
 	if (pipe(fd) < 0)
 		return (1);
@@ -121,10 +191,30 @@ int		main(void)
 	{
 		close(fd[0]);
 		ft_putfarm(fd[1], farm.val, "farm");
-		sleep(3);
-		ft_putcmd(fd[1], "##visited-node", "1");
-		sleep(3);
-		ft_putcmd(fd[1], "##visited-edge", "1-3");
+		sleep(10);
+		i = 0;
+		while (farm.val[i])
+		{
+			if (farm.val[i] != '#')
+			{
+				if ((res = get_node(farm.val + i)))
+				{
+					ft_putcmd(fd[1], "##visited-node", res);
+					free(res);
+					sleep(3);
+				}
+				else if ((res = get_edge(farm.val + i)))
+				{
+					ft_putcmd(fd[1], "##visited-edge", res);
+					free(res);
+					sleep(3);
+				}
+			}
+			while (farm.val[i] && farm.val[i] != '\n')
+				i++;
+			if (farm.val[i] == '\n')
+				i++;
+		}
 		wait(NULL);
 	}
 	else

@@ -115,3 +115,13 @@ when add args --viz ?
 	waiting the browser to be open
 	the browser sends [exit]
 
+
+
+
+
+
+
+
+
+
+https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/video-lectures/2a-higher-order-procedures/
