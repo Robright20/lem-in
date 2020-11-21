@@ -88,10 +88,10 @@ const setNodeStatus = async function (status, nodeName) {
 	if (!node) return log('setNodeStatus: %s not found', nodeName)
 	if (status === 'visiting') {
 		node.html.setAttribute('stroke', 'black');
-		node.html.setAttribute('stroke-width', '3');
+		node.html.setAttribute('stroke-width', '5');
 	} else if (status === 'visited') {
 		node.html.setAttribute('stroke', 'dodgerblue');
-		node.html.setAttribute('stroke-width', '2');
+		node.html.setAttribute('stroke-width', '5');
 	}
 }
 
@@ -102,6 +102,7 @@ const setEdgeStatus = async function (status, edgeName) {
 	if (!edge) return log('setEdgeStatus: %s not found', edgeName)
 	if (status === 'visited') {
 		edge.html.setAttribute('stroke', 'dodgerblue');
+		node.html.setAttribute('stroke-width', '5');
 	}
 }
 

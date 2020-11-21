@@ -71,7 +71,7 @@ class Node {
 		this.coords = {x: 0, y: 0};
 		this.edges = [];
 		this.html = '';
-		this.radius = 8;
+		this.radius = 20;
 	}
 }
 

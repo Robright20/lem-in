@@ -120,8 +120,23 @@ when add args --viz ?
 
 
 
+write arcticles
+make video like computerphile
+do the js pool
+start learning maths
+chatroulette
+english
 
+
+https://jvectormap.com/
+https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial
+https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Transformations
 
 
 
 https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-structure-and-interpretation-of-computer-programs-spring-2005/video-lectures/2a-higher-order-procedures/
+https://www.ibm.com/support/knowledgecenter/en/SSFKSJ_8.0.0/com.ibm.wmqfte.doc/web_post_file.htm
+https://idriesshahfoundation.org/books/learning-how-to-learn/
+https://lodev.org/cgtutor/raycasting.html
+https://www.youtube.com/watch?v=RXZiMZSkPeY&ab_channel=MovingSoundcloud
+https://www.youtube.com/watch?v=S6WePrn7dXc&ab_channel=MediocreExperiences
