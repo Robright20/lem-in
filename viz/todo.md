@@ -75,6 +75,7 @@ for every layer with (id < layers_x_pivot)
 - display the state of every rooms on the node and while zooming it can become visible.
 - video controls
 - zooming
+- radius size
 - click on a node and the info appear in the corner about that node.
 - stop the executable and keep the map state in the memory.
 - use the cache

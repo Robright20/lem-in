@@ -12,10 +12,10 @@
  *		`(${x}, ${y})`						*/
 /* ***************************************** */
 
-import { createGraph, nodes, edges, build_layers, layers } from './graph.js';
+import { createGraph, nodes, edges, build_layers, layers, max } from './graph.js';
 import { assignLayerPos, drawNode, drawEdge, updatePositions, updateMap, updateNodesColor, updateEdgesColor } from './graphics.js';
-// const WS_SERVER = 'ws://192.168.99.103:8000';
-const WS_SERVER = 'ws://localhost:8000';
+const WS_SERVER = 'ws://192.168.99.103:8000';
+// const WS_SERVER = 'ws://localhost:8000';
 const socket = new WebSocket(WS_SERVER);
 const canvas = document.getElementById('canvas');
 const xpadding = document.getElementById('Xpadding')
@@ -30,6 +30,9 @@ const log = console.log;
 let socketData = [];
 let antSize = 0;
 let farmEvents = {}
+let scale = 1;
+let transX = 0;
+let transY = 0;
 
 farmEvents.drawn = new Promise((resolve) => {
 	farmEvents['farmDrawn'] = (res) => {resolve(res)};
@@ -123,3 +126,46 @@ const setup = function(farm) {
 	}
 	farmEvents['farmDrawn']({layers, nodes, edges});
 }
+
+let originY = null;
+
+document.getElementsByClassName('zoom-btn')[0].onclick = () => {
+	//log(layers[max]);
+	if (scale >= 5) return
+	scale += 0.5;
+	let graphH = (layers[max][layers[max].length - 1].coords.y - layers[max][0].coords.y + 10)
+	let canvasH = 1044.8//canvas.clientHeight
+	//let startY = (layers[max][0].coords.y + graphH / 2)
+	let centerOfsset = (canvasH / 2) * scale - (canvasH / 2)
+	if (originY == null) originY = layers[max][0].coords.y
+	let yOffset = (originY * scale) - layers[max][0].coords.y
+	originY = originY * scale
+	let graphOffset = (graphH * 1.5) * 2 - graphH
+	//let offsetY = (canvasH / 2) * scale
+	//offsetY = (scale * (canvasH / 2)) - (canvasH / 2)
+	let g = canvas.children[0];
+	log(graphOffset, scale)
+	g.setAttribute('transform', `scale(${scale}) translate(${transX}, ${-graphOffset})`)
+}
+document.getElementsByClassName('zoom-btn')[1].onclick = () => {
+	if (scale <= 1) return
+	scale -= 0.5;
+	let g = canvas.children[0];
+	g.setAttribute('transform', `scale(${scale}) translate(${transX}, ${transY})`)
+}
+
+setTimeout(() => {
+	let graphH = (layers[max][layers[max].length - 1].coords.y - layers[max][0].coords.y + 10)
+	let canvasH = 1044.8//canvas.clientHeight
+	//let startY = (layers[max][0].coords.y + graphH / 2)
+	let centerOfsset = (canvasH / 2) * scale - (canvasH / 2)
+	if (originY == null) originY = layers[max][0].coords.y
+	let yOffset = (originY * scale) - layers[max][0].coords.y
+	originY = originY * scale
+	let graphOffset = graphH * 0 - graphH
+	//let offsetY = (canvasH / 2) * scale
+	//offsetY = (scale * (canvasH / 2)) - (canvasH / 2)
+	let g = canvas.children[0];
+	log(graphOffset, scale)
+	g.setAttribute('transform', `scale(${scale}) translate(${transX}, ${-graphOffset})`)
+}, 4000)

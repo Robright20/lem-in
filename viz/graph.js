@@ -71,7 +71,7 @@ class Node {
 		this.coords = {x: 0, y: 0};
 		this.edges = [];
 		this.html = '';
-		this.radius = 20;
+		this.radius = 5;
 	}
 }
 
@@ -106,6 +106,8 @@ function createGraph(data) {
 	}
 }
 
+let max = 0;
+
 function build_layers(nodes) {
 	let cur = 0;
 	let edge = [];
@@ -128,9 +130,12 @@ function build_layers(nodes) {
 				}
 			})
 		});
+		if (layers[cur].length > layers[max].length) {
+			max = cur
+		}
 		cur += 1;
 	} while (layers[cur]);
 	return (layers);
 }
 
-export { createGraph, nodes, edges, build_layers, layers };
+export { createGraph, nodes, edges, build_layers, layers, max};

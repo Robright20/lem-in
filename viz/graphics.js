@@ -14,7 +14,7 @@ export function drawNode(canvas, node) {
 	node.html.setAttribute('stroke-width', '3'); */
 	//node.html.setAttribute('fill', 'hsla(5, 100%,50%,.5)');
 	node.html.setAttribute('fill', 'red');
-	canvas.append(node.html);
+	canvas.children[0].append(node.html);
 }
 
 export function drawEdge(canvas, edge) {
@@ -28,7 +28,7 @@ export function drawEdge(canvas, edge) {
 	edge.html.setAttribute('y2', edge.to.coords.y);
 	edge.html.setAttribute('stroke', 'black');
 	edge.html.setAttribute('stroke-width', 3);
-	canvas.append(edge.html);
+	canvas.children[0].append(edge.html);
 }
 
 export function updateEdgePos(edge) {

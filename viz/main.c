@@ -6,7 +6,7 @@
 /*   By: fokrober <fokrober@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 22:38:28 by fokrober          #+#    #+#             */
-/*   Updated: 2020/11/13 19:06:24 by fokrober         ###   ########.fr       */
+/*   Updated: 2020/11/21 16:29:30 by fokrober         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ int		main(void)
 	{
 		close(fd[0]);
 		ft_putfarm(fd[1], farm.val, "farm");
-		sleep(10);
+		sleep(5);
 		i = 0;
 		while (farm.val[i])
 		{
@@ -201,13 +201,13 @@ int		main(void)
 				{
 					ft_putcmd(fd[1], "##visited-node", res);
 					free(res);
-					sleep(3);
+					sleep(1);
 				}
 				else if ((res = get_edge(farm.val + i)))
 				{
 					ft_putcmd(fd[1], "##visited-edge", res);
 					free(res);
-					sleep(3);
+					sleep(1);
 				}
 			}
 			while (farm.val[i] && farm.val[i] != '\n')
