@@ -141,3 +141,8 @@ https://idriesshahfoundation.org/books/learning-how-to-learn/
 https://lodev.org/cgtutor/raycasting.html
 https://www.youtube.com/watch?v=RXZiMZSkPeY&ab_channel=MovingSoundcloud
 https://www.youtube.com/watch?v=S6WePrn7dXc&ab_channel=MediocreExperiences
+
+
+
+
+https://www.w3schools.com/code/tryit.asp?filename=GKZMDVB4IXDA

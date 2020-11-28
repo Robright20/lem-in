@@ -4,25 +4,27 @@
 	<head>
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="https://kit.fontawesome.com/fa3b47614a.js" crossorigin="anonymous"></script>
 	</head>
 
 	<body>
 		<h1 class="main-title">Lem_in : Vizualizer</h1>
-		<div class="zoom-btn zoom-in">+</div>
-		<div class="zoom-btn zoom-out">-</div>
-		<svg id="canvas" xmlns="http://www.w3.org/2000/svg">
-			<g transform="scale(1) translate(0, 0)">
-				<circle cx="0" cy="0" r="5" fill="red" />
-			</g>
-		</svg>
+		<div class="container">
+			<i class="fas fa-plus zoom-btn zoom-in"></i>
+			<i class="fas fa-minus zoom-btn zoom-out"></i>
+			<svg id="canvas" xmlns="http://www.w3.org/2000/svg">
+				<g id="graph" transform="scale(1) translate(0, 0)">
+				</g>
+			</svg>
+		</div>
 		<div id="info">
 			<div class='controls c-colors'>
 				<input type="color" id="nodesColor" name="nodesColor" value="#ff0000">
 				<input type="color" id="edgesColor" name="edgesColor" value="#000000">
 			</div>
 			<div class='controls c-pad'>
-				<input type="range" min="1" max="100" value="50" id="Xpadding">
-				<input type="range" min="1" max="100" value="50" id="Ypadding">
+				<input type="range" min="1" max="100" value="0" id="Xpadding">
+				<input type="range" min="1" max="100" value="0" id="Ypadding">
 			</div>
 			<div class="states s-start">
 				<p class="s-title">Start</p>

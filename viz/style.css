@@ -23,23 +23,25 @@ body {
 	text-align: center;
 }
 
-#canvas {
-	border: 4px solid #0a0f1d;
+.container {
+	position: relative;
+	border: 4px solid dodgerblue;
 	width: 80%;
 	height: 80%;
+	background: rgba(155, 178, 206, 0.281);
+	background-size: cover;
 }
 
 #info {
 	display: flex;
 	justify-content: space-around;
-	border: 4px solid #0a0f1d;
+	border: 4px solid dodgerblue;
 	width: 80%;
 	height: 10%;
 }
 
 #info div {
 	display: flex;
-	/* border: 1px solid dodgerblue; */
 }
 
 .controls {
@@ -66,24 +68,51 @@ body {
 }
 
 .s-title {
+	font-weight: bold;
 	margin: 0;
+	padding: 2px;
 	text-align: center;
-	border: 1px solid red;
+	border: 2px solid #dbdbdb;
+	line-height: 15px;
 }
 
 .s-value {
 	margin: 0;
-	/* border: 1px solid red; */
 	font-size: 2.5em;
 	text-align: center;
 }
 
 .zoom-btn {
+	position: absolute;
+	left: 13px;
+	padding: 3px;
 	color: seashell;
 	background-color: royalblue;
-	width: 20px;
-	height: 20px;
 	border-radius: 3px;
+	width: 27px;
+	height: 27px;
 	text-align: center;
-	z-index: 2;
+	cursor: pointer;
+	transition: 100ms;
+}
+
+.zoom-btn:hover {
+	opacity: 0.8;
+}
+
+.zoom-btn:active {
+	transform: scale(0.9);
+}
+
+.zoom-in {
+	top: 10px;
+}
+
+.zoom-out {
+	top: 43px;
+}
+
+#canvas {
+	width: 100%;
+	height: 100%;
 }
